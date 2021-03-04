@@ -1,0 +1,35 @@
+<% unless current_user == user %>
+  <% if current_user.followed?(user) %>
+    <%= form_with model:user,local:true do |f| %>
+      <%= hidden_field_tag :follower_id,user.id %>
+      <%= f.submit "フォローする" %>
+    <% end %>
+  <% else %>
+    <%= form_with model:user,local:true do |f| %>
+      <%= hidden_field_tag :follower_id,user.id %>
+      <%= f.submit "フォロー外す" %>
+    <% end %>
+  <% end %>
+<% end %>
+<h2>Follow Users</h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @followeds.each do |followed| %>
+      <tr>
+        <td><%= attachment_image_tag followed, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg" %></td>
+        <td><%= followed.name %></td>
+        <td><p>フォロー数：<%= followed.followeds.count %></p></td>
+        <td><p>フォロワー数：<%= followed.followers.count %></p></td>
+        <td><%= link_to 'Show', user_path(followed), class: "user_#{followed.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% unless params[:controller] == "users" && params[:action] == “followed” %>
