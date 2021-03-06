@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :book_comments,only: [:create,:destroy]
   end
   resources :relationships, only: [:create,:destroy]
+  #post ":user_id/relationships", to:"relationships#create",as:"relationships"
+  #delete ":user_id/relationship", to:"relationships#destroy",as:"relationship"
   root 'homes#top'
   get 'home/about' => 'homes#about'
 
