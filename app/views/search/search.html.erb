@@ -1,0 +1,60 @@
+<div class = "container">
+  <% if @model == "user" %>
+    <h2>Users search for"<%= @content %>"</h2>
+    <div class = "row justify-content-center" >
+      <table class = "table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Introducion</th>
+          </tr>
+        </thead>
+        <% @datas.each do |datas| %>
+          <tbody>
+            <tr>
+              <td>
+                <%= attachment_image_tag datas,:profile_image,:fill,50,50,format: "jpg",fallback: "no-image-icon.jpg" %>
+              </td>
+              <td>
+                <%= link_to datas.name,user_path(datas.id) %>
+              </td>
+              <td>
+                <%= datas.introduction %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+
+  <% else %>
+    <h2>Books search for"<%= @content %>"</h2>
+    <div class = "row justify-content-center" >
+      <table class = "table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <% @datas.each do |datas| %>
+          <tbody>
+            <tr>
+              <td>
+                <%= attachment_image_tag datas.user,:profile_image,:fill,50,50,format: "jpg",fallback: "no-image-icon.jpg" %>    
+              </td>
+              <td>
+                <%= link_to datas.title,book_path(datas.id) %>
+              </td>
+              <td>
+                <%= datas.body %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
